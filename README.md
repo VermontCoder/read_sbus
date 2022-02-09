@@ -3,7 +3,13 @@ read_sbus is a module for the Rasperry Pi to read SBus protocol input. SBus is a
 quadcopters or cars. SBus has an advantage over standard PWM in that up to 16 channels of data can be sent over a single data line.
 
 The basic architecture here is as follows:
-- Transmitter sends out 
+- Transmitter sends out 16 channels of data over a wireless link approximately every 10ms.
+- Receiver receives the data and sends it out via the sbus protocol on the data wire.
+- Raspberry Pi sees this as high/low pulses which are translated into bits by sampling the state every 10 microseconds.
+- Lots of pulse activity followed by a continuous signal for about 6ms comprises a single packet of data.
+- Raspberry Pi program loops over and over using the read_sbus library to pickup the data sent by transmitter.
+- As the user adjusts the transmitter, the values for a particular channel change. The mapping of the transmitter control to the channel is controlled by the transmitter.
+- In the loop, the programmer puts code to react to whatever values are coming through
 
 ## Hardware Requirements
 - A Rasperry Pi (The Library was developed on a Rasperry 3)
@@ -12,6 +18,8 @@ The basic architecture here is as follows:
 
 In order to connect the receiver with the Rasperry Pi, it is necessary to solder on a 3 pin header (5v, gnd, and SBUS), which came included with xm+ used here.
 Then it is plugable into a breadboard or can be directly connected via jumper cables to the Pi.
+
+The transmitter and the receiver must first be "bound" together. To do this binding for the XM+ receiver and the Taranis, there is this [video]
 
 ## Software Requirements
 
