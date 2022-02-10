@@ -28,7 +28,7 @@ read_sbus makes use of two libraries (and optionally a third).
 
 - the [pigpio](https://abyz.me.uk/rpi/pigpio/) library. Installation instructions are in the link. The pigpio daemon must be running. After doing the install, the daemon is configured to startup on reboot.
 
-- the bitarray(https://pypi.org/project/bitarray/) library. Can be installed via [pip] (https://pip.pypa.io/en/stable/).
+- the [bitarray](https://pypi.org/project/bitarray/) library. Can be installed via [pip](https://pip.pypa.io/en/stable/).
 
 - (optional) curses library, also installable via pip, though later Raspberian OS installations seem to have this by default. This is only used by the function "display_latest_packet_curses()" in the module. If you do not use this function, you do not need curses.
 
