@@ -1,6 +1,7 @@
 import pigpio
 import bitarray as ba
 import bitarray.util as bau
+import time
 
 #PACKET REFERENCE
 
@@ -219,6 +220,7 @@ class SbusReader:
         curses.curs_set(0)
         
         while True:
+            time.sleep(.05)
             try:
                 key = stdscr.getkey()
             except:
