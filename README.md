@@ -19,37 +19,45 @@ The basic architecture here is as follows:
 In order to connect the receiver with the Rasperry Pi, it is necessary to solder on a 3 pin header (5v, gnd, and SBUS), which came included with xm+ used here.
 Then it is plugable into a breadboard or can be directly connected via jumper cables to the Pi.
 
-The transmitter and the receiver must first be "bound" together. To do this binding for the XM+ receiver and the Taranis, there is this [video]
+The transmitter and the receiver must first be "bound" together. To do this binding for the XM+ receiver and the Taranis, there is this [video](https://www.youtube.com/watch?v=ZOBwwNpjNrY). The process can be different for different transmitter/receiver combos, but generally they are similar. In this case there is no actual drone, so rather than
+hooking up a battery, simply attach the 5v and gnd leads from the receiver to the Raspberry Pi.
 
 ## Software Requirements
 
-- read_sbus 
+read_sbus makes use of two libraries (and optionally a third).
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+- the [pigpio](https://abyz.me.uk/rpi/pigpio/) library. Installation instructions are in the link. The pigpio daemon must be running. After doing the install, the daemon is configured to startup on reboot.
 
-```bash
-pip install foobar
-```
+- the bitarray(https://pypi.org/project/bitarray/) library. Can be installed via [pip] (https://pip.pypa.io/en/stable/).
+
+- (optional) curses library, also installable via pip, though later Raspberian OS installations seem to have this by default. This is only used by the function "display_latest_packet_curses()" in the module. If you do not use this function, you do not need curses.
+
+
+## Files
+
+3 .py files are in this repository
+
+- **read_sbus_from_GPIO.py** - This is the module. Drop it with your files and import it to use it.
+- **read_sbus_from_GPIO_test** - Runs some test code to see if things are behaving correctly. Waits for transmitter to connect before running tests. Device tests assumes hardware is set up as in this [video](TBD). However, if there is no hardware set up, simply nothing will happen.
+- **read_sbus_from_GPIO_template** - Basic template which can be modified to quickly get up and running with the library. Copy this file and put your code in the designated section.
 
 ## Usage
 
+Basic usage should be done as demonstrated in **read_sbus_from_GPIO_template**. **read_sbus_from_GPIO_test** has additional examples of use.
+
+Before the module can do anything, something like the following code needs to be executed:
+
 ```python
-import foobar
+import read_sbus_from_GPIO
 
-# returns 'words'
-foobar.pluralize('word')
+SBUS_PIN = 4 #pin where sbus wire is plugged in, whatever wire
 
-# returns 'geese'
-foobar.pluralize('goose')
+reader = read_sbus_from_GPIO.SbusReader(SBUS_PIN)
+reader.begin_listen()
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
+## Reference
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
