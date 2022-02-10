@@ -54,8 +54,21 @@ SBUS_PIN = 4 #pin where sbus wire is plugged in, whatever wire
 
 reader = read_sbus_from_GPIO.SbusReader(SBUS_PIN)
 reader.begin_listen()
+```
 
 ## Reference
+The following methods are supported:
+- **SbusReader(SBus_Pin)** - An SbusReader object needs to be created, passing a pin to listen for SBus frames on. All methods are called on this created object.
+
+- **begin_listen()** - Call before doing anything else with the library.
+- **end_listen()** - For clean termination, call after done with the library. Use try/except blocks to call this on error or Keyboard Interrupt is advisable, as shown in examples.
+- **display_latest_packet()** - Will print the state of all 16 channels, the age of the latest packet in ms and whether there is a connection or not. It is important to note that this information will not be valid until AFTER a good packet comes in, at least 10ms after a connection has been established between the transmitter and the receiver.
+- **display_latest_packet_curses()** - Same as display_latest_packet, but loops continuously updating in a single window. Updates every 50ms. Curses library must be installed via pip to use this method.
+- **get_latest_packet_age()** - Returns the age of the latest packet in ms. Note that when receiver is disconnected, it sends the same information over and over again, so the packets are always "fresh" but do not have good information. Use is_connected() to make sure you are connected.
+- **is_connected()** - Returns true if the receiver is connected to a transmitter, false otherwise.
+- **retrieve_latest_packet()** - Returns the raw bits of latest packet.
+- **translate_latest_packet()** - Returns 16 element list containing ints which represent the current channel values. Note that the list index starts at 0, channels start at one, so to retrieve channel#X, look at list index X-1.
+- **translate_packet(packet)** - same as translate_latest_packet() except takes a raw bit array as a parameter to turn into a channel list.
 
 
 
