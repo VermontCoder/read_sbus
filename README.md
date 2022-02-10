@@ -12,7 +12,7 @@ The basic architecture here is as follows:
 - In the loop, the programmer puts code to react to whatever values are coming through
 
 ## Hardware Requirements
-- A Rasperry Pi (The Library was developed on a Rasperry 3)
+- A Rasperry Pi (The Library was developed on a Raspberry 3)
 - A SBus protocol using RC receiver (Library was tested on an [FrSky XM+ Receiver](https://www.getfpv.com/frsky-xm-sbus-mini-receiver.html))
 - An RC transmitter compatible with the RC receiver (Library was tested using a [Taranis Q X7](https://www.frsky-rc.com/product/taranis-q-x7-2/))
 
@@ -50,7 +50,7 @@ Before the module can do anything, something like the following code needs to be
 ```python
 import read_sbus_from_GPIO
 
-SBUS_PIN = 4 #pin where sbus wire is plugged in, whatever wire
+SBUS_PIN = 4 #pin where sbus wire is plugged in, BCM numbering
 
 reader = read_sbus_from_GPIO.SbusReader(SBUS_PIN)
 reader.begin_listen()
@@ -58,7 +58,7 @@ reader.begin_listen()
 
 ## Reference
 The following methods are supported:
-- **SbusReader(SBus_Pin)** - An SbusReader object needs to be created, passing a pin to listen for SBus frames on. All methods are called on this created object.
+- **SbusReader(SBus_Pin)** - An SbusReader object needs to be created to use the library, passing a BCM pin to listen for SBus frames on. All methods are called on this created object.
 
 - **begin_listen()** - Call before doing anything else with the library.
 - **end_listen()** - For clean termination, call after done with the library. Use try/except blocks to call this on error or Keyboard Interrupt is advisable, as shown in examples.
@@ -70,7 +70,11 @@ The following methods are supported:
 - **translate_latest_packet()** - Returns 16 element list containing ints which represent the current channel values. Note that the list index starts at 0, channels start at one, so to retrieve channel#X, look at list index X-1.
 - **translate_packet(packet)** - same as translate_latest_packet() except takes a raw bit array as a parameter to turn into a channel list.
 
+## Performance Notes ##
 
+Testing was performed on a fairly unloaded Pi. Aside from typical load, the PI was also running a VNC Server. The device test controlled three different devices simultaneously. Average ms delay was typically around 10ms, with occasional spikes up to around 60ms, especially when servo operations were being done.
+
+While the transmitter/receiver combo is getting packets at a 10ms packet rate, due to the time slicing on the pi, some packet loss is innevitable as the running code does not have exclusive access to the processor. However, for most purposes, this ping rates are probably acceptable. Performance would no doubt degrade if the Pi is more heavily loaded or a less capable Pi is used.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
