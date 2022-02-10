@@ -12,7 +12,7 @@ The basic architecture here is as follows:
 - In the loop, the programmer puts code to react to whatever values are coming through
 
 ## Hardware Requirements
-- A Rasperry Pi (The Library was developed on a Raspberry 3)
+- A Raspberry Pi (The Library was developed on a Raspberry 3)
 - A SBus protocol using RC receiver (Library was tested on an [FrSky XM+ Receiver](https://www.getfpv.com/frsky-xm-sbus-mini-receiver.html))
 - An RC transmitter compatible with the RC receiver (Library was tested using a [Taranis Q X7](https://www.frsky-rc.com/product/taranis-q-x7-2/))
 
