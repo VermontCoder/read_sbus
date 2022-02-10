@@ -38,7 +38,7 @@ read_sbus makes use of two libraries (and optionally a third).
 3 .py files are in this repository
 
 - **read_sbus_from_GPIO.py** - This is the module. Drop it with your files and import it to use it.
-- **read_sbus_from_GPIO_test** - Runs some test code to see if things are behaving correctly. Waits for transmitter to connect before running tests. Device tests assumes hardware is set up as in this [video](TBD). However, if there is no hardware set up, simply nothing will happen.
+- **read_sbus_from_GPIO_test** - Runs some test code to see if things are behaving correctly. Waits for transmitter to connect before running tests. Device tests assumes hardware is set up as in this [video](https://www.youtube.com/watch?v=pWE8LxcFq9Y). However, if there is no hardware set up, simply nothing will happen.
 - **read_sbus_from_GPIO_template** - Basic template which can be modified to quickly get up and running with the library. Copy this file and put your code in the designated section.
 
 ## Usage
