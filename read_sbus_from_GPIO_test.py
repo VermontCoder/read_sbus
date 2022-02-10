@@ -101,6 +101,8 @@ def device_test(reader):
                 else:
                     reader.pi.write(LED_ON_OFF_PIN,0)
     except KeyboardInterrupt:
+        reader.pi.write(LED_ON_OFF_PIN,0)
+        reader.pi.write(LED_BRIGHTNESS_PIN,0)
         return
         
 
